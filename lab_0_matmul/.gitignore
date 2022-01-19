@@ -1,0 +1,15 @@
+__pycache__
+.ipynb_checkpoints
+build
+lib/libmatmul.a
+
+*.cpp
+*.so
+*.csv
+
+.idea
+/lib
+/venv
+
+
+*.vcxproj
