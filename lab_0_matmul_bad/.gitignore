@@ -1,15 +1,17 @@
 __pycache__
 .ipynb_checkpoints
 build
-lib/libmatmul.a
+lib
+venv
 
+lib/libmatmul.a
+lib/libmatmul.lib
+*.pyd
 *.cpp
 *.so
 *.csv
 
+
+
 .idea
-/lib
-/venv
-
-
 *.vcxproj

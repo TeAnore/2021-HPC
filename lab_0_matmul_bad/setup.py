@@ -1,9 +1,9 @@
 import os
 from os.path import join as pjoin
-from distutils.core import setup
-from distutils.extension import Extension
+from setuptools import Extension, setup
 from Cython.Distutils import build_ext
-from icecream import ic
+from Cython.Build import cythonize
+
 
 
 def find_in_path(name, path):
@@ -52,20 +52,20 @@ def locate_cuda():
 
 
 CUDA = locate_cuda()
-ic(CUDA)
+print(CUDA)
 
-ext = Extension('cudaext',
-                sources=['wrapper.pyx'],
-                libraries=['lib/kernel', 'cudart', 'cublas'],  # , os.path.join(CUDA['lib64'], 'cudart')],
+ext = Extension('CythonWrapper',
+                sources=['CythonWrapper.pyx'],
+                libraries=['lib/libmatmul', 'cudart', 'cublas'],  # , os.path.join(CUDA['lib64'], 'cudart')],
                 language='c++',
                 include_dirs=[CUDA['include']],
                 library_dirs=[CUDA['lib64']],
-                extra_compile_args=['/openmp']
+                extra_compile_args=['-fopenmp'],
+                extra_link_args=['-fopenmp'],
                 )
 
 setup(
-    name='cudaext',
     include_dirs=[CUDA['include']],
-    ext_modules=[ext],
+    ext_modules = [ext],
     cmdclass={'build_ext': build_ext},
 )
